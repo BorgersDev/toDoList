@@ -21,6 +21,9 @@ export const Home = () => {
     }
 
     const handleTaskAdd = () => {
+      if(task === ''){
+        return Alert.alert('Empty Input', 'Fill in the field and press the button to add a task')
+      }
       if (tasks.includes(task)) {
         return Alert.alert('Task Already Exists')
       }
@@ -29,7 +32,7 @@ export const Home = () => {
     }
   return (
     <View style={styles.container}>
-      <Text style={styles.titleText}>Home</Text>
+      <Text style={styles.titleText}>To-do List</Text>
 
       <View style={styles.form}>
         <TextInput
