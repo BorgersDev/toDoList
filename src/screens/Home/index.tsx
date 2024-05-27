@@ -1,12 +1,31 @@
 import { View, Text, SafeAreaView, TextInput, Touchable, TouchableOpacity, Alert, FlatList } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import { styles } from './styles'
 import { Task } from '../../Components/Task';
 
 export const Home = () => {
-    const tasks = ['Clean room', 'Take the trash out', 'make bed', 'Take Medicine']
-    const handleTaskRemove = () => {
-        Alert.alert( 'Remove', `Do you want to delete the task?`)
+    const [tasks , setTasks] = useState([])
+    const [task , setTask] = useState('')
+
+    const handleTaskRemove = (taskName: string) => {
+        Alert.alert( 'Remove', `Do you want to delete the task?`, [
+          {
+            text: 'Yes',
+            onPress: () => setTasks( prevState => prevState.filter(task => task != taskName))
+          },
+          {
+            text: 'No',
+            style: 'cancel'
+          }
+        ]) 
+    }
+
+    const handleTaskAdd = () => {
+      if (tasks.includes(task)) {
+        return Alert.alert('Task Already Exists')
+      }
+      setTasks([...tasks, task])
+      setTask('')
     }
   return (
     <View style={styles.container}>
@@ -17,8 +36,13 @@ export const Home = () => {
           style={styles.input}
           placeholder="Add Task"
           placeholderTextColor="#808080"
+          onChangeText={setTask}
+          value={task}
         />
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity 
+          style={styles.button}
+          onPress={handleTaskAdd}
+        >
           <Text style={styles.buttonText}> + </Text>
         </TouchableOpacity>
       </View>

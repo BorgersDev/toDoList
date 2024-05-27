@@ -28,7 +28,8 @@ export const styles = StyleSheet.create({
         backgroundColor: "#1C1C1C",
         padding: 10,
         fontWeight: "bold",
-        marginRight: 6
+        marginRight: 6,
+        color: 'white'
     },
     button: {
         height: 56,
